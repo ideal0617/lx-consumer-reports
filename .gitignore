@@ -1,6 +1,10 @@
-# 只提交仓库根目录的 daily.html / weekly.html / README.md / .gitignore
+# 只提交白名单文件
 *
 !daily.html
 !weekly.html
 !README.md
 !.gitignore
+!daily/
+!daily/*
+!weekly/
+!weekly/*
