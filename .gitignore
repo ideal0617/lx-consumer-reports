@@ -1,0 +1,6 @@
+# 只提交仓库根目录的 daily.html / weekly.html / README.md / .gitignore
+*
+!daily.html
+!weekly.html
+!README.md
+!.gitignore

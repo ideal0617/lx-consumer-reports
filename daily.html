@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>消费日报 · 2026-07-16</title>
+<style>
+  :root{
+    --bg:#ffffff; --soft:#f6f7f9; --soft2:#eef1f5;
+    --line:#e6e8ec; --line2:#eceef2;
+    --ink:#1a1f2b; --ink2:#3c4453; --muted:#6b7280; --muted2:#9aa1ac;
+    --blue:#2563c9; --blue-soft:#eaf1fc; --blue-dk:#1b4a9c;
+    --up:#d0332b; --up-soft:#fdecea;      /* 涨 红 */
+    --dn:#18863f; --dn-soft:#e7f6ec;      /* 跌 绿 */
+    --amber:#b7791f; --amber-soft:#fdf3e1;
+    --gold:#c9a45a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+    background:var(--soft); color:var(--ink); line-height:1.75; font-size:14px;
+    padding-bottom:50px;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:0 20px}
+
+  /* ── Header ── */
+  header{background:linear-gradient(135deg,#16233b 0%,#1e3a5f 50%,#2563c9 100%); color:#fff; padding:30px 0 26px; margin-bottom:22px}
+  .h-top{display:flex; align-items:center; gap:12px}
+  .h-mark{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#f5c04a,var(--gold));display:flex;align-items:center;justify-content:center;color:#16233b;font-weight:800;font-size:19px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  h1{font-size:25px;font-weight:750;letter-spacing:-.4px}
+  .h-sub{font-size:12px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-top:1px}
+  .h-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.85)}
+  .h-meta .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4);align-self:center}
+  .h-cov{font-size:12px;color:rgba(255,255,255,.72);margin-top:8px}
+
+  /* ── Section head ── */
+  .sec{margin-bottom:30px}
+  .sec-h{display:flex;align-items:center;gap:10px;margin:0 0 16px;padding-bottom:10px;border-bottom:2px solid var(--blue)}
+  .sec-h h2{font-size:20px;font-weight:750;color:var(--ink)}
+  .sec-h .en{font-size:11px;color:var(--muted2);margin-left:auto;letter-spacing:1px;text-transform:uppercase}
+
+  /* ── KPI hero cards ── */
+  .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .kpi{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;box-shadow:0 1px 2px rgba(0,0,0,.02)}
+  .kpi .k-name{font-size:13px;color:var(--muted);font-weight:500}
+  .kpi .k-num{font-size:38px;font-weight:800;line-height:1.15;margin:6px 0 4px;letter-spacing:-1px}
+  .kpi .k-desc{font-size:12.5px;color:var(--ink2)}
+  .k-up{color:var(--up)} .k-dn{color:var(--dn)} .k-amber{color:var(--amber)} .k-blue{color:var(--blue)}
+
+  /* ── Numbered list ── */
+  .nlist{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+  .nitem{display:flex;gap:12px}
+  .nbadge{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:2px}
+  .ntext{font-size:13.5px;color:var(--ink2);line-height:1.7}
+  .ntext strong{color:var(--ink);font-weight:650}
+
+  /* ── Callouts ── */
+  .call{border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13.5px;line-height:1.75;color:var(--ink2)}
+  .call .lab{font-weight:750;display:block;margin-bottom:4px;font-size:13.5px}
+  .call.key{background:linear-gradient(180deg,#eef4fd,#f7faff);border:1px solid #d3e2f7;border-left:4px solid var(--blue)}
+  .call.key .lab{color:var(--blue-dk)}
+  .call.diff{background:var(--amber-soft);border:1px solid #f0dcb5;border-left:4px solid var(--amber)}
+  .call.diff .lab{color:var(--amber)}
+  .call.warn{background:var(--up-soft);border:1px solid #f4cfcb;border-left:4px solid var(--up)}
+  .call.warn .lab{color:var(--up)}
+  .call strong{color:var(--ink)}
+
+  /* ── Charts ── */
+  .chart{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0}
+  .chart .c-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px}
+  .chart .c-title .em{color:var(--blue);font-weight:800;margin-right:6px}
+  .bar-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:12.5px}
+  .bar-label{flex:0 0 128px;text-align:right;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar-track{flex:1;display:flex;align-items:center;height:18px;background:linear-gradient(90deg,transparent 49.7%,#d5d9e0 49.7%,#d5d9e0 50.3%,transparent 50.3%)}
+  .bar-half{width:50%;display:flex;align-items:center;height:100%}
+  .bar-half.neg{justify-content:flex-end}
+  .bar-half.pos{justify-content:flex-start}
+  .bar-fill{height:12px;border-radius:3px}
+  .bar-fill.up{background:linear-gradient(90deg,#e8776f,var(--up))}
+  .bar-fill.dn{background:linear-gradient(270deg,#5cbf82,var(--dn))}
+  .bar-val{flex:0 0 62px;font-variant-numeric:tabular-nums;font-weight:700}
+  .c-note{font-size:11.5px;color:var(--muted2);margin-top:12px;line-height:1.6;border-top:1px dashed var(--line2);padding-top:8px}
+  .c-note b{color:var(--muted);font-weight:600}
+
+  /* ── Broker cards ── */
+  .grp-lab{font-size:12px;font-weight:700;color:#fff;background:var(--blue);display:inline-block;padding:3px 12px;border-radius:20px;margin:6px 0 12px}
+  .grp-lab.f{background:#7a4bd0}
+  .bcard{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+  .bc-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+  .bc-inst{font-size:12px;font-weight:700;color:var(--blue-dk);background:var(--blue-soft);padding:1px 9px;border-radius:4px}
+  .bc-inst.f{color:#5b34a8;background:#f0e9fb}
+  .bc-title{font-size:14px;font-weight:700;color:var(--ink)}
+  .bc-meta{font-size:11.5px;color:var(--muted2);margin-bottom:8px}
+  .bc-body{font-size:13px;color:var(--ink2);line-height:1.7}
+  .bc-body ul{list-style:none;padding:0;margin:0}
+  .bc-body li{position:relative;padding:3px 0 3px 15px}
+  .bc-body li::before{content:"";position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--blue)}
+  .bc-body strong{color:var(--ink);font-weight:650}
+
+  /* ── Table ── */
+  .twrap{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.8px;min-width:640px}
+  thead th{text-align:left;font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:11px 12px;background:var(--soft);border-bottom:1px solid var(--line)}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.up,.up{color:var(--up);font-weight:650} td.dn,.dn{color:var(--dn);font-weight:650} .flat{color:var(--muted)}
+
+  /* ── Flow diagram ── */
+  .flow{margin-top:14px}
+  .flow-layer{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:6px}
+  .flow-cap{font-size:12px;font-weight:700;color:var(--blue-dk);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+  .flow-cap .tag{background:var(--blue-soft);border-radius:5px;padding:1px 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px;color:var(--ink2);line-height:1.35}
+  .chip b{color:var(--ink);display:block;font-size:12.5px}
+  .chip span{font-size:11px;color:var(--muted)}
+  .chip.up{border-color:#f0ccc9;background:#fdf4f3} .chip.up b{color:var(--up)}
+  .chip.dn{border-color:#c8e6d3;background:#f2faf5} .chip.dn b{color:var(--dn)}
+  .flow-arrow{text-align:center;color:var(--muted2);font-size:12px;margin:2px 0 6px}
+
+  footer{text-align:center;font-size:11.5px;color:var(--muted);padding:8px 20px 0;line-height:1.7}
+
+  @media(max-width:720px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .kpi .k-num{font-size:32px}
+    .bar-label{flex-basis:92px}
+    h1{font-size:21px}
+  }
+  @media(max-width:440px){
+    .kpi-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="h-top">
+      <div class="h-mark">消</div>
+      <div>
+        <h1>消费日报 · 板块与产业链</h1>
+        <div class="h-sub">Consumer Daily · Sector &amp; Value Chain</div>
+      </div>
+    </div>
+    <div class="h-meta">
+      <span>2026-07-16 周四 收盘</span><span class="dot"></span>
+      <span>中证内地消费 +0.41%（跑赢沪深300 226bp）</span><span class="dot"></span>
+      <span>数据源：进门 comein-mcp-all</span>
+    </div>
+    <div class="h-cov">申万一级：食品饮料·家电·汽车·轻工·美护·社服·农林牧渔·纺织服饰　｜　港股新消费　｜　海外消费龙头</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ═════ 今日最值得关注的变化 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>今日最值得关注的变化</h2><span class="en">Key Changes</span></div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="k-name">中证内地消费 · 今日</div>
+      <div class="k-num k-up">+0.41%</div>
+      <div class="k-desc">跑赢沪深300 226bp、中证500 277bp</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">港股通消费 · 今日</div>
+      <div class="k-num k-up">+1.94%</div>
+      <div class="k-desc">恒生指数 +1.33%；港股新消费领涨</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">泡泡玛特 · 港潮玩</div>
+      <div class="k-num k-up">+6.87%</div>
+      <div class="k-desc">168.10 港币；巨子 +4.15%、蜜雪 +3.66%</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">申万农林牧渔 · 领涨</div>
+      <div class="k-num k-up">+1.57%</div>
+      <div class="k-desc">牧原 +3.15%；美护 +1.23% 次之</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">飞天茅台批价（渠道）</div>
+      <div class="k-num k-amber">1500–1700</div>
+      <div class="k-desc">团购 1700，散瓶 1500；淡季价盘稳定</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">舍得酒业 · H1业绩预告</div>
+      <div class="k-num k-dn">−60~−70%</div>
+      <div class="k-desc">归母1.35–1.75亿；7/10 公告，次高端承压</div>
+    </div>
+  </div>
+
+  <div class="nlist">
+    <div class="nitem"><div class="nbadge">1</div><div class="ntext"><strong>消费独立走强、跑赢全市场：</strong>全市场普跌（沪深300 −1.85% / 中证500 −2.36% / 创业板指 −2.95% / 科创50 −4.02%），中证内地消费收阳 <strong>+0.41%</strong>、港股通消费 <strong>+1.94%</strong>、恒生指数 <strong>+1.33%</strong>，消费类指数跑赢宽基 226–443bp。</div></div>
+    <div class="nitem"><div class="nbadge">2</div><div class="ntext"><strong>港股新消费大幅领涨：</strong>泡泡玛特 <strong>+6.87%</strong>（168.10）、巨子生物 <strong>+4.15%</strong>（29.62）、蜜雪集团 <strong>+3.66%</strong>（226.80）、蒙牛 +1.53%、农夫山泉 +1.06%；仅老铺黄金 −0.43%、李宁 −0.73% 逆市回调。</div></div>
+    <div class="nitem"><div class="nbadge">3</div><div class="ntext"><strong>白酒与调味品全线回暖：</strong>今世缘 +2.59%、老窖 +1.28%、洋河 +1.21%、汾酒 +0.76%、茅台 +0.63%、五粮液 +0.11%；调味品海天 <strong>+2.17%</strong>（36.32）、乳品新乳业 <strong>+2.92%</strong>（15.85）、伊利 +0.39%——大众品/白酒同步走强。</div></div>
+    <div class="nitem"><div class="nbadge">4</div><div class="ntext"><strong>农牧+美护领涨申万一级：</strong>农林牧渔 <strong>+1.57%</strong>（牧原 +3.15%）、美容护理 <strong>+1.23%</strong>；食饮 +0.26%、汽车 +0.09% 微涨；家电 −0.54%（美的 −1.05%）、轻工 −0.58%、纺服 −1.40% 少数收跌。</div></div>
+    <div class="nitem"><div class="nbadge">5</div><div class="ntext"><strong>宏观与政策端多重信号：</strong>华泰点评 6 月社零增速转正、内需温和修复；国务院于 7/13 批复扩大消费"十五五"规划落地；华源新消费周报确认 6 月 CPI <strong>+1.0%</strong>、文旅部十五五规划出台；舍得 7/10 公告 H1 归母净利 <strong>−60.52%~−69.55%</strong>，次高端调整持续兑现。</div></div>
+  </div>
+
+  <div class="call key">
+    <span class="lab">🔑 今日事实要点</span>
+    今日 A/H 消费板块与全市场走势分化：宽基（沪深300 / 中证500 / 创业板 / 科创50）全线下跌 1.85–4.02%，而 <strong>中证内地消费 +0.41%、港股通消费 +1.94%、恒生指数 +1.33%</strong> 独立收涨。板块内两条线索同步走强——<strong>港股新消费主题（泡泡玛特 +6.87% / 巨子 +4.15% / 蜜雪 +3.66%）</strong> 与 <strong>A 股白酒+大众品普涨（今世缘 +2.59% / 海天 +2.17% / 新乳业 +2.92%）</strong>；农牧、美护为申万一级涨幅前二，家电、纺服少数收跌。<em>本报告仅客观陈述当日行情与事实信号，不构成投资建议。</em>
+  </div>
+
+  <!-- 图0 -->
+  <div class="chart">
+    <div class="c-title"><span class="em">图0</span>消费指数 vs 全市场宽基 · 今日涨跌（%）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">港股通消费</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:48.3%"></div></div></div><div class="bar-val up">+1.94</div></div>
+      <div class="bar-row"><div class="bar-label">恒生指数</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:33.1%"></div></div></div><div class="bar-val up">+1.33</div></div>
+      <div class="bar-row"><div class="bar-label">中证内地消费</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:10.2%"></div></div></div><div class="bar-val up">+0.41</div></div>
+      <div class="bar-row"><div class="bar-label">沪深300</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:46.0%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−1.85</div></div>
+      <div class="bar-row"><div class="bar-label">中证500</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:58.7%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−2.36</div></div>
+      <div class="bar-row"><div class="bar-label">创业板指</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:73.4%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−2.95</div></div>
+      <div class="bar-row"><div class="bar-label">科创50</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:100%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−4.02</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · searchIndexQuotation，2026-07-16 收盘。<br><b>怎么看：</b>今日消费指数（内地/港股通/恒生）独立收涨，而 A 股宽基普跌 1.85–4.02%；港股通消费 +1.94% 领先内地消费 +0.41%，跨市场 α 明显向港股新消费/大市值防御龙头收敛。</div>
+  </div>
+</section>
+
+<!-- ═════ 板块速览（图1 + 表） ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>板块速览</h2><span class="en">Sector Snapshot</span></div>
+
+  <div class="chart">
+    <div class="c-title"><span class="em">图1</span>申万一级消费板块 · 今日涨跌（%）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">农林牧渔</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:100%"></div></div></div><div class="bar-val up">+1.57</div></div>
+      <div class="bar-row"><div class="bar-label">美容护理</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:78.3%"></div></div></div><div class="bar-val up">+1.23</div></div>
+      <div class="bar-row"><div class="bar-label">食品饮料</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:16.6%"></div></div></div><div class="bar-val up">+0.26</div></div>
+      <div class="bar-row"><div class="bar-label">汽车</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:5.7%"></div></div></div><div class="bar-val up">+0.09</div></div>
+      <div class="bar-row"><div class="bar-label">社会服务</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:8.9%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−0.14</div></div>
+      <div class="bar-row"><div class="bar-label">家用电器</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:34.4%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−0.54</div></div>
+      <div class="bar-row"><div class="bar-label">轻工制造</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:36.9%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−0.58</div></div>
+      <div class="bar-row"><div class="bar-label">纺织服饰</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:89.2%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−1.40</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · searchIndexQuotation，2026-07-16。<br><b>怎么看：</b>涨幅序列 = 农牧 &gt; 美护 &gt; 食饮 &gt; 汽车 &gt; 社服 &gt; 家电 &gt; 轻工 &gt; 纺服；申万一级 8 个消费板块 4 涨 4 跌，"必选/顺周期底部品种"（农牧+牧原/美护+功效护肤）领涨，"高基数/出海回吐"（家电+纺服）少数下跌。</div>
+  </div>
+
+  <div class="twrap">
+  <table>
+    <thead><tr><th>板块</th><th class="num">今日</th><th class="num">近1周</th><th>龙头 / 关键驱动</th></tr></thead>
+    <tbody>
+      <tr><td>申万农林牧渔</td><td class="num up">+1.57%</td><td class="num up">+2.11%</td><td>牧原 +3.15%（40.90）；猪价底部 + 成本领先</td></tr>
+      <tr><td>申万美容护理</td><td class="num up">+1.23%</td><td class="num up">+1.86%</td><td>巨子 +4.15%、珀莱雅 +0.37%；功效护肤主线</td></tr>
+      <tr><td>申万食品饮料</td><td class="num up">+0.26%</td><td class="num up">+0.31%</td><td>白酒普涨、海天 +2.17%、新乳业 +2.92%</td></tr>
+      <tr><td>申万汽车</td><td class="num up">+0.09%</td><td class="num dn">−1.35%</td><td>比亚迪 +2.59%（94.14）；反弹但边际</td></tr>
+      <tr><td>申万社会服务</td><td class="num dn">−0.14%</td><td class="num dn">−1.03%</td><td>暑期数据待验证，OTA/餐饮小幅回调</td></tr>
+      <tr><td>申万家用电器</td><td class="num dn">−0.54%</td><td class="num dn">−1.90%</td><td>美的 −1.05% 领跌，海尔 +0.43%、安克 +2.74%</td></tr>
+      <tr><td>申万轻工制造</td><td class="num dn">−0.58%</td><td class="num dn">−2.05%</td><td>地产链承压延续</td></tr>
+      <tr><td>申万纺织服饰</td><td class="num dn">−1.40%</td><td class="num dn">−2.62%</td><td>李宁 −0.73%；运动服饰全球杀估值延续</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═════ 消费池涨跌 TOP ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>消费池涨跌 TOP</h2><span class="en">Top Movers · A+H+US</span></div>
+
+  <div class="twrap" style="margin-bottom:14px">
+  <table>
+    <thead><tr><th>涨幅榜</th><th class="num">收盘</th><th class="num">今日</th><th class="num">近1周</th><th>催化 / 逻辑</th></tr></thead>
+    <tbody>
+      <tr><td>泡泡玛特 · 港潮玩</td><td class="num">168.10</td><td class="num up">+6.87%</td><td class="num up">+9.51%</td><td>Labubu 出海+IP 变现加速</td></tr>
+      <tr><td>巨子生物 · 港美护</td><td class="num">29.62</td><td class="num up">+4.15%</td><td class="num up">+11.68%</td><td>功效护肤景气延续</td></tr>
+      <tr><td>蜜雪集团 · 港茶饮</td><td class="num">226.80</td><td class="num up">+3.66%</td><td class="num up">+7.18%</td><td>下沉龙头+出海故事</td></tr>
+      <tr><td>牧原股份 · 生猪</td><td class="num">40.90</td><td class="num up">+3.15%</td><td class="num up">+6.10%</td><td>成本领先+底部布局</td></tr>
+      <tr><td>新乳业 · 乳品</td><td class="num">15.85</td><td class="num up">+2.92%</td><td class="num up">+12.57%</td><td>低温奶份额+Q2 利润弹性</td></tr>
+      <tr><td>安克创新 · 出海</td><td class="num">113.80</td><td class="num up">+2.74%</td><td class="num up">+5.62%</td><td>Prime Day 兑现+跨境提价</td></tr>
+      <tr><td>今世缘 · 白酒</td><td class="num">26.58</td><td class="num up">+2.59%</td><td class="num up">+8.94%</td><td>省内动销回暖+估值修复</td></tr>
+      <tr><td>比亚迪 · 汽车</td><td class="num">94.14</td><td class="num up">+2.59%</td><td class="num up">+8.23%</td><td>7 月销量与出海订单预期</td></tr>
+      <tr><td>海天味业 · 调味品</td><td class="num">36.32</td><td class="num up">+2.17%</td><td class="num up">+5.58%</td><td>Q2 稳健+餐饮复苏顺价</td></tr>
+      <tr><td>蒙牛乳业 · 港乳品</td><td class="num">17.96</td><td class="num up">+1.53%</td><td class="num up">+6.27%</td><td>高股息+盈利周期</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="twrap">
+  <table>
+    <thead><tr><th>跌幅榜</th><th class="num">收盘</th><th class="num">今日</th><th class="num">近1周</th><th>催化 / 逻辑</th></tr></thead>
+    <tbody>
+      <tr><td>美的集团 · 家电</td><td class="num">81.80</td><td class="num dn">−1.05%</td><td class="num up">+1.74%</td><td>高基数 + 内销回吐</td></tr>
+      <tr><td>天味食品 · 调味品</td><td class="num">13.75</td><td class="num dn">−1.08%</td><td class="num up">+2.38%</td><td>川调竞争+复调渠道压力延续</td></tr>
+      <tr><td>李宁 · 港运动</td><td class="num">15.01</td><td class="num dn">−0.73%</td><td class="num dn">−3.85%</td><td>2Q 运营更新前谨慎+外资下修</td></tr>
+      <tr><td>老铺黄金 · 港饰品</td><td class="num">373.40</td><td class="num dn">−0.43%</td><td class="num dn">−3.06%</td><td>高估值+获利了结</td></tr>
+      <tr><td>安踏体育 · 港运动</td><td class="num">73.80</td><td class="num up">+0.07%</td><td class="num dn">−1.14%</td><td>2Q 流水前观望；Citi 维持 Top Buy</td></tr>
+      <tr><td>五粮液 · 白酒</td><td class="num">73.90</td><td class="num up">+0.11%</td><td class="num up">+1.48%</td><td>回款 72–73%、批价 735 探底</td></tr>
+      <tr><td>农夫山泉 · 港饮料</td><td class="num">42.02</td><td class="num up">+1.06%</td><td class="num up">+2.44%</td><td>无糖茶份额延续</td></tr>
+      <tr><td>伊利股份 · 乳品</td><td class="num">26.03</td><td class="num up">+0.39%</td><td class="num up">+2.28%</td><td>原奶低位磨底</td></tr>
+      <tr><td>海尔智家 · 家电</td><td class="num">21.11</td><td class="num up">+0.43%</td><td class="num dn">−0.94%</td><td>出海订单韧性</td></tr>
+      <tr><td>珀莱雅 · 美护</td><td class="num">60.22</td><td class="num up">+0.37%</td><td class="num up">+7.20%</td><td>抖音渠道回暖</td></tr>
+    </tbody>
+  </table>
+  <div class="c-note" style="padding:8px 12px 10px"><b>说明：</b>今日消费池整体呈现"普涨、少数微跌"结构，跌幅榜后半段实为微涨或近乎持平品种（列示以呈现完整对照）；真正意义上的下跌集中于美的（−1.05%）、天味（−1.08%）、李宁（−0.73%）、老铺黄金（−0.43%）。</div>
+  </div>
+
+  <div class="call warn">
+    <span class="lab">⚠️ 结构信号</span>
+    涨幅榜清一色 <strong>港股新消费（泡泡玛特/巨子/蜜雪/蒙牛）+ 白酒回暖（今世缘/老窖/汾酒/茅台）+ 大众品必选（海天/新乳业/伊利）+ 顺周期底部（牧原/比亚迪）</strong>；下跌集中于 <strong>家电（美的高基数）+ 川调（天味）+ 运动服饰（李宁）+ 高估值品种（老铺黄金）</strong>。板块内α结构与 7/13 相比 <strong>由"必选防御"扩散至"白酒+新消费+顺周期底部"三线共振</strong>。
+  </div>
+</section>
+
+<!-- ═════ 海外消费龙头（图2） ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>海外消费龙头</h2><span class="en">Global Leaders</span></div>
+
+  <div class="chart">
+    <div class="c-title"><span class="em">图2</span>海外消费龙头 · 年初至今 YTD（%）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">星巴克 SBUX</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:60.8%"></div></div></div><div class="bar-val up">+27.1</div></div>
+      <div class="bar-row"><div class="bar-label">可口可乐 KO</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:46.1%"></div></div></div><div class="bar-val up">+20.5</div></div>
+      <div class="bar-row"><div class="bar-label">亚马逊 AMZN</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:23.7%"></div></div></div><div class="bar-val up">+10.6</div></div>
+      <div class="bar-row"><div class="bar-label">好市多 COST</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:16.1%"></div></div></div><div class="bar-val up">+7.2</div></div>
+      <div class="bar-row"><div class="bar-label">百事 PEP</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:6.5%"></div></div></div><div class="bar-val up">+2.9</div></div>
+      <div class="bar-row"><div class="bar-label">宝洁 PG</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:3.2%"></div></div></div><div class="bar-val up">+1.4</div></div>
+      <div class="bar-row"><div class="bar-label">麦当劳 MCD</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:26.2%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−11.7</div></div>
+      <div class="bar-row"><div class="bar-label">耐克 NKE</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:70.5%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−31.4</div></div>
+      <div class="bar-row"><div class="bar-label">Lululemon</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:100%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−44.5</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · pricePerformance，2026-07-16 早盘/PRE。<br><b>怎么看：</b>三条主线延续——防御龙头（星巴克 YTD +27.1% / 可口可乐 +20.5%）与 A 股茅台/海天同构；电商/仓储会员（AMZN +10.6% / COST +7.2%）稳步走高；<strong>运动服饰全球杀估值加深</strong>（NKE −31.4% / LULU −44.5%），与 A 股/港股李宁下修同向；快餐 MCD −11.7% 情绪偏弱。</div>
+  </div>
+
+  <div class="call diff">
+    <span class="lab">💡 全球映射</span>
+    <strong>"大市值 + 股息"防御风格全球延续</strong>：星巴克 YTD +27.1%、可口可乐 +20.5% 与 A 股茅台/海天/伊利今日普涨方向一致；<strong>运动服饰全球性杀估值</strong>：耐克 −31.4%、Lululemon −44.5% 为港股李宁 2Q 流水下修（外资下修至 −LSD~0%）提供全球交叉验证；<strong>情绪消费/IP变现 A/H 独立走强</strong>：泡泡玛特 +6.87%、巨子 +4.15% 逆全球快餐/服饰调整走出独立 α，反映 A/H 新消费主题仍具备独立行情空间。
+  </div>
+</section>
+
+<!-- ═════ 机构观点 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>机构观点 · 内资 / 外资研报</h2><span class="en">Broker Views</span></div>
+
+  <div class="grp-lab">内资券商</div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">华泰证券</span><span class="bc-title">可选消费动态点评《6 月社零增速转正，内需温和修复》</span></div>
+    <div class="bc-meta">樊俊豪 等 · 2026-07-15</div>
+    <div class="bc-body"><ul>
+      <li>6 月社零同比增速<strong>转正</strong>，餐饮/化妆品/金银珠宝等可选品类环比改善；三季度低基数下弹性可期。</li>
+      <li>推荐主线：<strong>必选价值+可选主题</strong>——白酒龙头（茅五泸汾）、乳品（伊利/蒙牛/新乳业）、餐饮供应链（宝立/千味央厨）；新消费方向关注泡泡玛特、蜜雪、巨子。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">国信证券</span><span class="bc-title">商贸零售 · 扩大消费"十五五"规划落地点评</span></div>
+    <div class="bc-meta">曾光 / 张鲁 · 2026-07-14</div>
+    <div class="bc-body"><ul>
+      <li>7/13 国务院批复扩大消费"十五五"规划落地，围绕<strong>服务消费、绿色消费、数字消费</strong>三大方向。</li>
+      <li>看好餐饮/酒店/景区/OTA 中长期政策红利；免税消费恢复弹性明确。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">开源证券</span><span class="bc-title">大消费 · 十五五消费规划落地，板块配置窗口期</span></div>
+    <div class="bc-meta">张宇光 · 2026-07-14</div>
+    <div class="bc-body"><ul>
+      <li>十五五规划确认<strong>扩大消费定调</strong>；二季度白酒批价（茅 1500–1700 / 五 735 / 国窖 840）企稳有效托底行业。</li>
+      <li>推荐：<strong>汾酒/茅台/五粮液/老窖/今世缘/古井</strong>；大众品海天/新乳业/伊利/东鹏/盐津。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">华源证券</span><span class="bc-title">新消费周报《6 月 CPI +1.0%，文旅部十五五规划出台》</span></div>
+    <div class="bc-meta">丁一 · 2026-07-14</div>
+    <div class="bc-body"><ul>
+      <li>6 月 CPI +1.0%（顺价窗口延续）；文旅部十五五规划出台，重点支持文旅融合与消费场景创新。</li>
+      <li>方向：<strong>服务消费（餐饮/酒店/景区）+ 美护（毛戈平/上美）+ 古法黄金（老铺）+ 潮玩（泡泡玛特）+ 茶饮（蜜雪/古茗）</strong>。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">财通证券</span><span class="bc-title">对酒当歌系列19 · 白酒渠道月度跟踪</span></div>
+    <div class="bc-meta">白酒渠道电话会 · 2026-07-14</div>
+    <div class="bc-body"><ul>
+      <li>飞天茅台<strong>团购价 1700</strong>元/瓶、散瓶 1500 左右；茅台整体价盘淡季稳定。</li>
+      <li>五粮液回款 72–73%、批价 <strong>735</strong>、库存 50 余天；国窖回款仅 <strong>30%</strong>、批价 <strong>840</strong>、库存 70–80 天。</li>
+      <li>汾酒回款 70%、玻汾 <strong>475–480</strong>、青花20 <strong>350–355</strong>；古井动销同比 <strong>−11%</strong>、库存 <strong>4.3 个月/32%</strong>。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">国海证券</span><span class="bc-title">舍得酒业 · H1 业绩预告点评：次高端调整持续兑现</span></div>
+    <div class="bc-meta">薛玉虎 · 2026-07-11</div>
+    <div class="bc-body"><ul>
+      <li>舍得 7/10 发布 H1 业绩预告：归母净利 <strong>1.35–1.75 亿元，同比 −60.52%~−69.55%</strong>；主动去库+费用控制。</li>
+      <li>次高端调整仍在兑现窗口；关注 26H2 老白干/水井坊/口子窖等次高端业绩预告节奏。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">申港/华龙</span><span class="bc-title">食饮周报 · 估值筑底，坚守龙头</span></div>
+    <div class="bc-meta">曹旭特 / 谢宁铃 · 2026-07-13～14</div>
+    <div class="bc-body"><ul>
+      <li>白酒板块 PE 处 5Y 分位 3.6%，股息率 3.53%（5Y 分位 98.3%），<strong>估值+股息双维筑底</strong>。</li>
+      <li>推荐：<strong>茅台/五粮液/汾酒/古井+海天/新乳业/伊利</strong>；港股关注农夫山泉/蒙牛/华润啤酒。</li>
+    </ul></div>
+  </div>
+
+  <div class="grp-lab f">外资券商</div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst f">Citi 花旗</span><span class="bc-title">China Sportswear · 2Q Retail Sales Preview 延续</span></div>
+    <div class="bc-meta">Xiaopo Wei / Vincent Young · 2026-07-01（跟踪至 07-16）</div>
+    <div class="bc-body"><ul>
+      <li><strong>安踏</strong>维持 Top Buy（TP HK$108.8）；<strong>李宁</strong>2Q26 核心品牌流水下修至 <strong>−LSD~0%</strong>（TP HK$22.8，Buy）。</li>
+      <li>Puma 收购 4Q26 完成预期，看好安踏多品牌整合弹性；李宁 7 月中旬 2Q 运营更新为关键催化。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst f">Deutsche Bank 德银</span><span class="bc-title">李宁 · Hold 维持，FY26 净利低于共识</span></div>
+    <div class="bc-meta">2026-07-05</div>
+    <div class="bc-body"><ul>
+      <li>维持 <strong>Hold</strong>；2Q26 零售流水或转负，<strong>FY26 净利较市场共识低 9%</strong>；下调 26E 收入增速至 4.9%。</li>
+    </ul></div>
+  </div>
+
+  <div class="call diff">
+    <span class="lab">💡 预期差</span>
+    内资普遍以 <strong>"十五五消费规划落地 + 白酒批价企稳 + 大众品顺价 + 6 月社零转正"</strong> 为主基调，博弈下半年低基数弹性和政策端催化；外资对港股运动服饰整体审慎（李宁 2Q 流水下修、DB 下调 FY26 盈利），但仍给安踏 Top Buy。舍得 H1 预减 60–70% 为 <strong>次高端负面兑现的领先信号</strong>，与开源/财通"茅五汾泸头部酒企回款库存显著优于地产/次高端"结论一致。
+  </div>
+</section>
+
+<!-- ═════ 高频/渠道/专家会 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>高频数据 · 渠道调研 · 专家会</h2><span class="en">High-Freq &amp; Channel</span></div>
+
+  <div class="call warn">
+    <span class="lab">⚠️ 白酒价盘分层（财通《对酒当歌19》 · 2026-07-14）</span>
+    <strong>茅五 &gt; 汾酒 &gt; 老窖 &gt; 地产酒</strong> 分层清晰。飞天茅台<strong>团购 1700 / 散瓶 1500</strong>；普五 <strong>~735</strong>（回款 72–73%、库存 50 余天）；国窖 <strong>~840</strong>"有价无市"（回款仅 30%、库存 70–80 天）；玻汾 <strong>475–480</strong> / 青花20 <strong>350–355</strong>（回款 70%）；古井动销同比 <strong>−11%</strong>、库存 <strong>4.3 个月 / 32%</strong>。头部酒企回款与库存健康度显著优于地产/次高端。
+    <span style="font-size:11.5px;color:var(--muted2);display:block;margin-top:6px">来源：财通《对酒当歌19》、开源大消费电话会、中泰茅台经销商跟踪、国金食饮渠道电话会。</span>
+  </div>
+
+  <div class="call key">
+    <span class="lab">🔑 宏观顺价窗口延续</span>
+    6 月 CPI 同比 <strong>+1.0%</strong>、社零增速转正（华泰点评）、制造业 PMI 位于扩张区间——通胀边际回升 → 大众品（调味品/餐饮链/啤酒/乳制品）顺价窗口开启。7/13 国务院批复 <strong>扩大消费"十五五"规划落地</strong>；文旅部十五五规划围绕文旅融合与场景创新落地，服务消费/餐饮/景区/免税/OTA 政策红利明确。
+  </div>
+
+  <div class="call diff">
+    <span class="lab">💡 关键事件</span>
+    ① <strong>舍得酒业 7/10 公告 H1 业绩预告</strong>：归母净利 1.35–1.75 亿，同比 −60.52%~−69.55%，为次高端调整兑现节奏的领先信号；② <strong>李宁 2Q26 运营更新</strong>预计 7 月中旬披露，将验证 −LSD~0% 外资下修预期；③ <strong>白酒二季报窗口</strong>：茅台/五粮液/老窖/汾酒/今世缘/迎驾集中于 7 下旬–8 月披露；④ <strong>泡泡玛特 +6.87%</strong>今日港股领涨、Labubu 出海+IP 变现主题延续。
+  </div>
+</section>
+
+<!-- ═════ 分环节速览 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>分板块景气速览</h2><span class="en">Sector Barometer</span></div>
+  <div class="twrap">
+  <table>
+    <thead><tr><th>板块</th><th class="num">今日</th><th class="num">近1周</th><th>核心景气信号</th><th class="num">趋势</th></tr></thead>
+    <tbody>
+      <tr><td>食品饮料</td><td class="num up">+0.26%</td><td class="num up">+0.31%</td><td>白酒普涨（今世缘+2.59%/老窖+1.28%/茅台+0.63%）；批价企稳（茅1500-1700/五735/国窖840）；海天+2.17%/新乳业+2.92%</td><td class="num up">↑</td></tr>
+      <tr><td>家用电器</td><td class="num dn">−0.54%</td><td class="num dn">−1.90%</td><td>美的−1.05% 内销高基数，海尔+0.43% / 安克+2.74% 出海主线独立走强</td><td class="num up">↑ 出海</td></tr>
+      <tr><td>汽车</td><td class="num up">+0.09%</td><td class="num dn">−1.35%</td><td>比亚迪+2.59%（94.14）；7 月销量与海外订单预期反弹</td><td class="num flat">→</td></tr>
+      <tr><td>轻工制造</td><td class="num dn">−0.58%</td><td class="num dn">−2.05%</td><td>地产链持续承压</td><td class="num dn">↓</td></tr>
+      <tr><td>美容护理</td><td class="num up">+1.23%</td><td class="num up">+1.86%</td><td>巨子+4.15%（29.62）领涨；珀莱雅+0.37%；功效护肤景气延续</td><td class="num up">↑</td></tr>
+      <tr><td>社会服务</td><td class="num dn">−0.14%</td><td class="num dn">−1.03%</td><td>暑期数据待验证；OTA/餐饮小幅回调</td><td class="num flat">→</td></tr>
+      <tr><td>农林牧渔</td><td class="num up">+1.57%</td><td class="num up">+2.11%</td><td>牧原+3.15%（40.90）领涨；猪价底部+成本领先</td><td class="num up">↑ 底部</td></tr>
+      <tr><td>纺织服饰</td><td class="num dn">−1.40%</td><td class="num dn">−2.62%</td><td>李宁−0.73% 2Q 前谨慎+外资下修；全球运动服饰杀估值</td><td class="num dn">↓</td></tr>
+      <tr><td>港股新消费</td><td class="num up">大涨</td><td class="num up">强势</td><td>泡泡玛特+6.87%/巨子+4.15%/蜜雪+3.66%/蒙牛+1.53%/农夫+1.06%——主题α明确</td><td class="num up">↑ 主题</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═════ 全景图谱 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>消费板块全景图谱</h2><span class="en">Consumer Map</span></div>
+  <div class="flow">
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">宏观 / 政策端</span>需求与政策驱动</div>
+      <div class="chips">
+        <div class="chip"><b>6月 CPI +1.0%</b><span>顺价窗口延续</span></div>
+        <div class="chip"><b>6月 社零增速转正</b><span>华泰点评 · 内需修复</span></div>
+        <div class="chip"><b>十五五消费规划落地</b><span>7/13 国务院批复</span></div>
+        <div class="chip"><b>文旅部十五五规划</b><span>服务消费红利</span></div>
+        <div class="chip"><b>原奶低位待企稳</b><span>26H2 或回升</span></div>
+      </div>
+    </div>
+    <div class="flow-arrow">▼ 传导至消费板块 β</div>
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">板块层 β</span>申万一级消费（今日 4 涨 4 跌）</div>
+      <div class="chips">
+        <div class="chip up"><b>农林牧渔 +1.57%</b><span>牧原领涨</span></div>
+        <div class="chip up"><b>美容护理 +1.23%</b><span>巨子领涨</span></div>
+        <div class="chip up"><b>食品饮料 +0.26%</b><span>白酒+调味品普涨</span></div>
+        <div class="chip up"><b>汽车 +0.09%</b><span>比亚迪反弹</span></div>
+        <div class="chip dn"><b>社服 −0.14%</b><span>暑期待验证</span></div>
+        <div class="chip dn"><b>家电 −0.54%</b><span>美的领跌</span></div>
+        <div class="chip dn"><b>轻工 −0.58%</b><span>地产链弱</span></div>
+        <div class="chip dn"><b>纺服 −1.40%</b><span>运动服饰弱</span></div>
+      </div>
+    </div>
+    <div class="flow-arrow">▼ 收敛至龙头 α（三线共振）</div>
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">个股层 α</span>白酒回暖 + 新消费领涨 + 顺周期底部</div>
+      <div class="chips">
+        <div class="chip up"><b>泡泡玛特 +6.87%</b><span>IP/潮玩出海</span></div>
+        <div class="chip up"><b>巨子 +4.15%</b><span>功效护肤</span></div>
+        <div class="chip up"><b>蜜雪 +3.66%</b><span>下沉+出海</span></div>
+        <div class="chip up"><b>牧原 +3.15%</b><span>猪价底部</span></div>
+        <div class="chip up"><b>新乳业 +2.92%</b><span>低温奶份额</span></div>
+        <div class="chip up"><b>安克 +2.74%</b><span>跨境出海</span></div>
+        <div class="chip up"><b>今世缘 +2.59%</b><span>次高端回暖</span></div>
+        <div class="chip up"><b>比亚迪 +2.59%</b><span>销量预期</span></div>
+        <div class="chip up"><b>海天 +2.17%</b><span>顺价+餐饮</span></div>
+        <div class="chip up"><b>茅台 +0.63%</b><span>确定性红利</span></div>
+      </div>
+    </div>
+    <div class="flow-arrow">▼ 催化与资金</div>
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">催化 / 资金</span>后续跟踪线索</div>
+      <div class="chips">
+        <div class="chip"><b>舍得 H1 预减 60-70%</b><span>次高端调整兑现</span></div>
+        <div class="chip"><b>白酒二季报窗口</b><span>7 月下旬-8 月密集披露</span></div>
+        <div class="chip"><b>李宁 2Q 运营更新</b><span>7 月中旬 · 内外资分歧</span></div>
+        <div class="chip"><b>海外映射</b><span>防御龙头强 / 运动服饰弱</span></div>
+        <div class="chip"><b>港股新消费主题</b><span>独立 α 空间</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p>数据截止：2026-07-16 收盘（美股为 7/16 早盘/PRE）· 全部行情、白酒批价渠道纪要、内外资研报、CPI/社零/政策 均经 <b>进门 comein-mcp-all</b> 实时取数核对（searchIndexQuotation / pricePerformance / searchDomesticReports / searchForeignReports / searchRoadshowSummary / indicatorDataRetrieve）</p>
+  <p>本报告仅供个人研究参考，不构成投资建议</p>
+</footer>
+
+</body>
+</html>
