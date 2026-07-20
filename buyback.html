@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>回购增持日报 · 待生成</title>
+<style>
+  :root{
+    --bg:#ffffff; --soft:#f6f7f9;
+    --line:#e6e8ec;
+    --ink:#1a1f2b; --ink2:#3c4453; --muted:#6b7280; --muted2:#9aa1ac;
+    --blue:#2563c9; --blue-soft:#eaf1fc; --blue-dk:#1b4a9c;
+    --gold:#c9a45a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+    background:var(--soft); color:var(--ink); line-height:1.75; font-size:14px;
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .card{max-width:520px; width:100%; background:var(--bg); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,.04)}
+  .hd{background:linear-gradient(135deg,#16233b 0%,#1e3a5f 45%,#c9a45a 100%); color:#fff; padding:28px 30px}
+  .hd .mark{display:inline-block; padding:3px 10px; font-size:11px; letter-spacing:2px; text-transform:uppercase; background:rgba(255,255,255,.15); border-radius:12px; margin-bottom:10px}
+  .hd h1{font-size:22px; font-weight:750; letter-spacing:-.3px}
+  .hd .sub{font-size:13px; color:rgba(255,255,255,.8); margin-top:6px}
+  .body{padding:26px 30px 30px}
+  .body p{color:var(--ink2); margin-bottom:12px}
+  .body p b{color:var(--ink)}
+  .body ul{padding-left:20px; margin:8px 0 16px; color:var(--ink2)}
+  .body ul li{margin:6px 0}
+  .body code{background:var(--soft); padding:1px 6px; border-radius:4px; font-size:12.5px; color:var(--blue-dk); font-family:"SFMono-Regular",Consolas,monospace}
+  .links{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+  .links a{flex:1; min-width:120px; text-align:center; padding:10px 12px; background:var(--blue-soft); color:var(--blue-dk); text-decoration:none; border-radius:8px; font-size:13px; font-weight:600; transition:.15s}
+  .links a:hover{background:var(--blue); color:#fff}
+  .foot{border-top:1px solid var(--line); padding:14px 30px; background:var(--soft); font-size:11.5px; color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="hd">
+      <span class="mark">Buyback Daily · Placeholder</span>
+      <h1>回购增持日报</h1>
+      <div class="sub">A 股 + 港股每日『股份回购 &amp; 股东增持』事件监测</div>
+    </div>
+    <div class="body">
+      <p><b>本页面为占位页。</b>首份 <code>/dw-buyback</code> 报告尚未生成，一旦运行发布脚本，此处将自动更新为当日回购增持日报。</p>
+      <p>报告内容将覆盖：</p>
+      <ul>
+        <li>A 股 / 港股当日新增回购公告 Top 10（按当日实施金额）</li>
+        <li>A 股 / 港股当日新增股东增持公告 Top 10</li>
+        <li>消费板块专项聚合（食饮 / 家电 / 纺服 / 零售 / 美护 / 餐饮）</li>
+        <li>存量在进行中的大额项目剩余额度追踪</li>
+        <li>单笔巨额、首次回购、控股股东首次增持等异常事件高亮</li>
+      </ul>
+      <p style="font-size:12.5px; color:var(--muted)">数据源：同花顺 iFind（A 股主源）+ 进门财经 comein-brm（港股主源）；口径与二次验证细则详见 <code>.qoder/skills/dw-buyback/SKILL.md</code>。</p>
+      <div class="links">
+        <a href="../daily.html">今日日报 →</a>
+        <a href="../weekly.html">本周周报 →</a>
+      </div>
+    </div>
+    <div class="foot">
+      占位页 · 首次触发 <code>/dw-buyback</code> 后由 <code>publish.py</code> 自动覆盖 · v1.0.0
+    </div>
+  </div>
+</body>
+</html>
